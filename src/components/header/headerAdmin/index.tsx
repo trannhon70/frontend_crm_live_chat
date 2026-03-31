@@ -29,11 +29,6 @@ const HeaderComponent: FC<IHeaderProps> = ({ collapsed, setCollapsed }) => {
 
     useEffect(() => {
         dispatch(fetchUserById());
-        const interval = setInterval(() => {
-            dispatch(fetchUserById());
-        }, 60000); // 10 giây
-
-        return () => clearInterval(interval);
     }, [dispatch])
 
     const items: MenuProps['items'] = [
@@ -74,11 +69,11 @@ const HeaderComponent: FC<IHeaderProps> = ({ collapsed, setCollapsed }) => {
                 height: 50,
             }}
         />
-        
+
         <div className='flex items-center justify-between gap-3 pr-4  ' style={{ textTransform: 'capitalize' }} >
 
             <div className='flex items-center gap-3 ' >
-                {users?.user?.fullName}
+                {users?.user?.full_name}
                 <Dropdown menu={{ items }}>
                     <div onClick={(e) => e.preventDefault()}>
                         <Space className='cursor-pointer' >

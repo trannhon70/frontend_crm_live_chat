@@ -33,8 +33,6 @@ const ManagerUser: FC = () => {
     const { data, isError, isLoading } = useQuery({
         queryKey: ["users", { pageIndex, pageSize, search }],
         queryFn: () => userAPI.getPagingAdmin({ pageIndex, pageSize, search }),
-        placeholderData: keepPreviousData,
-        staleTime: 5000,
     });
 
     if (isLoading) return <LoadingLayout />
