@@ -1,26 +1,22 @@
-import { Fragment, useEffect, useState, type FC } from "react";
-import { FaUserCircle } from "react-icons/fa";
-import { useRef } from "react";
 import { Button, DatePicker, Input, type DatePickerProps } from "antd";
-import { userAPI } from "../../apis/user.api";
+import dayjs from 'dayjs';
+import { Fragment, useRef, useState, type FC } from "react";
+import { FaUserCircle } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import dayjs from 'dayjs';
+import { userAPI } from "../../apis/user.api";
+import { setUser } from "../../features/usersSlice";
+import type { RootState } from "../../redux/store";
 
 const Profile: FC = () => {
-    const [user, setUser] = useState<any>({})
+    // const [user, setUser] = useState<any>({})
     const navigate = useNavigate();
     const [file, setFile] = useState<any>(null)
-    const getByUser = async () => {
-        const result = await userAPI.getByIdUser();
-        setUser(result.data.data)
-    }
-
-    useEffect(() => {
-        getByUser()
-    }, [])
-
+    const { user } = useSelector((state: RootState) => state.users);
+    const dispatch = useDispatch();
     const fileInputRef: any = useRef(null);
+    console.log(user);
 
     const handleDivClick = () => {
         fileInputRef.current?.click();
@@ -31,22 +27,17 @@ const Profile: FC = () => {
         if (file) {
             setFile(file)
             const url = URL.createObjectURL(file);
-            setUser((prev: any) => {
-                return {
-                    ...prev,
-                    avatar: url
-                }
-            })
+            dispatch(setUser({
+                avatar: url
+            }));
         }
     };
 
     const onChange: DatePickerProps['onChange'] = (date, _dateString) => {
         const timestampInSeconds = date.unix();
-
-        setUser((prev: any) => ({
-            ...prev,
+        dispatch(setUser({
             ngay_sinh: timestampInSeconds
-        }))
+        }));
     };
 
     const onClickPrev = () => {
@@ -66,7 +57,6 @@ const Profile: FC = () => {
         }).catch(() => {
             toast.error('Cập nhật không thành công!')
         })
-
     }
 
     return <Fragment>
@@ -100,7 +90,11 @@ const Profile: FC = () => {
                 <div className="text-xl font-bold text-[#0f447d] mb-1" >
                     Họ và tên:
                 </div>
-                <Input variant="filled" size="large" value={user.full_name} onChange={(e: any) => { setUser((prev: any) => ({ ...prev, full_name: e.target.value })) }} />
+                <Input variant="filled" size="large" value={user.full_name} onChange={(e: any) => {
+                    dispatch(setUser({
+                        full_name: e.target.value
+                    }));
+                }} />
             </div>
             <div className="mt-2" >
                 <div className="text-xl font-bold text-[#0f447d] mb-1" >
@@ -112,7 +106,11 @@ const Profile: FC = () => {
                 <div className="text-xl font-bold text-[#0f447d] mb-1" >
                     Số điện thoại:
                 </div>
-                <Input variant="filled" size="large" value={user.phone} onChange={(e: any) => { setUser((prev: any) => ({ ...prev, phone: e.target.value })) }} />
+                <Input variant="filled" size="large" value={user.phone} onChange={(e: any) => {
+                    dispatch(setUser({
+                        phone: e.target.value
+                    }));
+                }} />
             </div>
             <div className="mt-4 flex items-center justify-center gap-2" >
                 <Button onClick={onClickUpdate} color="primary" variant="solid" size="large">
