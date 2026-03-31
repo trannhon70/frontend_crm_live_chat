@@ -4,7 +4,7 @@ export const userAPI = {
     login,
     getByIdUser,
     create,
-    getPaging,
+    getPagingAdmin,
     closeTheLock,
     updatePassword,
     getById,
@@ -35,8 +35,8 @@ function create(data: any) {
 }
 
 
-async function getPaging(query: any) {
-    const response = await instance.get(`/users/get-paging?pageIndex=${query.pageIndex}&pageSize=${query.pageSize}&search=${query.search}`);
+async function getPagingAdmin(query: any) {
+    const response = await instance.get(`/users/get-paging-admin?pageIndex=${query.pageIndex}&pageSize=${query.pageSize}&search=${query.search}`);
     return response.data.data
 }
 

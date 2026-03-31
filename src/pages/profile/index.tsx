@@ -10,13 +10,11 @@ import { setUser } from "../../features/usersSlice";
 import type { RootState } from "../../redux/store";
 
 const Profile: FC = () => {
-    // const [user, setUser] = useState<any>({})
     const navigate = useNavigate();
     const [file, setFile] = useState<any>(null)
     const { user } = useSelector((state: RootState) => state.users);
     const dispatch = useDispatch();
     const fileInputRef: any = useRef(null);
-    console.log(user);
 
     const handleDivClick = () => {
         fileInputRef.current?.click();

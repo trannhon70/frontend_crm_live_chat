@@ -29,14 +29,14 @@ const ManagerUser: FC = () => {
     const queryClient = useQueryClient();
     const [open, setOpen] = useState<boolean>(false);
     const [value, setValue] = useState<any>();
-    
+
     const { data, isError, isLoading } = useQuery({
         queryKey: ["users", { pageIndex, pageSize, search }],
-        queryFn: () => userAPI.getPaging({ pageIndex, pageSize, search }),
+        queryFn: () => userAPI.getPagingAdmin({ pageIndex, pageSize, search }),
         placeholderData: keepPreviousData,
         staleTime: 5000,
     });
-   
+
     if (isLoading) return <LoadingLayout />
     if (isError) return <ErrorComponent />
 
@@ -45,14 +45,14 @@ const ManagerUser: FC = () => {
             title: "STT",
             dataIndex: 'age',
             key: 'age',
-            render(_value , _record, index) {
+            render(_value, _record, index) {
                 return <Fragment>{index + 1}</Fragment>
             },
         },
         {
             title: "Họ và tên",
-            dataIndex: 'fullName',
-            key: 'fullName',
+            dataIndex: 'full_name',
+            key: 'full_name',
         },
         {
             title: "Email",
@@ -88,16 +88,22 @@ const ManagerUser: FC = () => {
                         {
                             !value ?
                                 <Tooltip title="Mở khóa tài khoản">
-                                    <IoMdLock onClick={() => onClickOpenLock(record.id)} color="red" size={25} />
+                                    <span>
+                                        <IoMdLock onClick={() => onClickOpenLock(record.id)} color="red" size={25} />
+                                    </span>
                                 </Tooltip>
                                 :
                                 <Tooltip title="Đóng tài khoản">
-                                    <IoMdUnlock onClick={() => onClickCloseLock(record.id)} color="#008236" size={25} />
+                                    <span>
+                                        <IoMdUnlock onClick={() => onClickCloseLock(record.id)} color="#008236" size={25} />
+                                    </span>
                                 </Tooltip>
                         }
                     </div>
                     <Popover content={content(record)} trigger="click">
-                        <IoSettings className='cursor-pointer  ' size={25} />
+                        <span>
+                            <IoSettings className='cursor-pointer  ' size={25} />
+                        </span>
                     </Popover>
 
                 </div>
@@ -107,16 +113,16 @@ const ManagerUser: FC = () => {
 
     const content = (record: any) => (
         <div className="w-[170px]" >
-           <div onClick={() => onClickModalPassword(record)}  className="cursor-pointer flex items-center gap-1.5 text-gray-600 font-semibold text-base hover:bg-amber-700 hover:text-white p-1 transition-all duration-300 ease-in-out transform hover:scale-105" ><PiPasswordLight size={20} />Thay đổi mật khẩu</div>
-           <div onClick={() => onClickEdit(record.id)}  className="cursor-pointer flex items-center gap-1.5 text-gray-600 font-semibold text-base hover:bg-amber-700 hover:text-white p-1 transition-all duration-300 ease-in-out transform hover:scale-105" ><FaEdit size={20} />Cập nhật</div>
+            <div onClick={() => onClickModalPassword(record)} className="cursor-pointer flex items-center gap-1.5 text-gray-600 font-semibold text-base hover:bg-amber-700 hover:text-white p-1 transition-all duration-300 ease-in-out transform hover:scale-105" ><PiPasswordLight size={20} />Thay đổi mật khẩu</div>
+            <div onClick={() => onClickEdit(record.id)} className="cursor-pointer flex items-center gap-1.5 text-gray-600 font-semibold text-base hover:bg-amber-700 hover:text-white p-1 transition-all duration-300 ease-in-out transform hover:scale-105" ><FaEdit size={20} />Cập nhật</div>
         </div>
     );
 
     const onClickEdit = (id: number) => {
         navige(`/admin/quan-ly-nguoi-dung/cap-nhat/${id}`)
     }
-   
-    
+
+
     const onClickModalPassword = (value: any) => {
         setValue(value)
         setOpen(true);
@@ -129,7 +135,7 @@ const ManagerUser: FC = () => {
                 toast.success(`Khóa tài khoản thành công!`);
                 queryClient.invalidateQueries({ queryKey: ["users"] });
             }
-        } catch (error : any) {
+        } catch (error: any) {
             console.log(error);
             toast.error(`${error.response.data.message}`)
         }
@@ -142,7 +148,7 @@ const ManagerUser: FC = () => {
                 toast.success(`Mở khóa tài khoản thành công!`);
                 queryClient.invalidateQueries({ queryKey: ["users"] });
             }
-        } catch (error : any) {
+        } catch (error: any) {
             console.log(error);
             toast.error(`${error.response.data.message}`)
         }
