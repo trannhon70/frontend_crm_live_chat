@@ -77,8 +77,8 @@ const ManagerUser: FC = () => {
         },
         {
             title: "Thao tác",
-            key: 'delete',
-            dataIndex: 'delete',
+            key: 'is_deleted',
+            dataIndex: 'is_deleted',
             render(value, record, _index) {
 
                 return <div className='flex gap-4 ' >
@@ -128,7 +128,7 @@ const ManagerUser: FC = () => {
 
     const onClickCloseLock = async (id: number) => {
         try {
-            const result = await userAPI.closeTheLock({ id, delete: false })
+            const result = await userAPI.closeTheLock({ id, is_deleted: false })
             if (result.statusCode === 1) {
                 toast.success(`Khóa tài khoản thành công!`);
                 queryClient.invalidateQueries({ queryKey: ["users"] });
@@ -141,7 +141,7 @@ const ManagerUser: FC = () => {
 
     const onClickOpenLock = async (id: number) => {
         try {
-            const result = await userAPI.closeTheLock({ id, delete: true })
+            const result = await userAPI.closeTheLock({ id, is_deleted: true })
             if (result.statusCode === 1) {
                 toast.success(`Mở khóa tài khoản thành công!`);
                 queryClient.invalidateQueries({ queryKey: ["users"] });
