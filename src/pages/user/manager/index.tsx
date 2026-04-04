@@ -1,15 +1,15 @@
-import { keepPreviousData, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { GetProps, TableProps } from 'antd';
 import { Breadcrumb, Input, Popover, Tooltip } from "antd";
 import moment from "moment";
 import type { FC } from 'react';
 import { Fragment, useState } from "react";
+import { FaEdit } from "react-icons/fa";
 import { IoMdLock, IoMdUnlock } from "react-icons/io";
 import { IoSettings } from "react-icons/io5";
 import { PiPasswordLight } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { FaEdit } from "react-icons/fa";
 import { userAPI } from "../../../apis/user.api";
 import ErrorComponent from "../../../components/error";
 import LoadingLayout from "../../../components/loadingLayout";

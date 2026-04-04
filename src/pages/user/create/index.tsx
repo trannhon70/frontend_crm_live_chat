@@ -9,13 +9,13 @@ import { rolesAPI } from "../../../apis/role.api";
 import { userAPI } from "../../../apis/user.api";
 
 type FieldType = {
-    roleId?: string;
+    role_id?: string;
     email?: string;
     password?: string;
-    fullName?: string;
+    full_name?: string;
     ngaySinh?: string;
     phone?: string;
-    delete?: string;
+    is_deleted?: string;
     avatar?: string;
     confirm?: string;
     quantity?: number;
@@ -32,10 +32,10 @@ const CreateUser: FC = () => {
     const getByIdUser = async (id: number) => {
         const result = await userAPI.getById(id);
         form.setFieldsValue({
-            roleId: result.roleId,
-            fullName: result.fullName,
+            role_id: result.role_id,
+            full_name: result.full_name,
             email: result.email,
-            delete: result.delete,
+            is_deleted: result.is_deleted,
             quantity: result.quantity,
         });
     }
@@ -59,11 +59,11 @@ const CreateUser: FC = () => {
 
     const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
         const body = {
-            roleId: values.roleId,
-            fullName: values.fullName,
+            role_id: values.role_id,
+            full_name: values.full_name,
             email: values.email,
             password: values.password,
-            delete: values.delete,
+            is_deleted: values.is_deleted,
             quantity: values.quantity,
         }
         if (param.id) {
@@ -130,7 +130,7 @@ const CreateUser: FC = () => {
             >
                 <Form.Item<FieldType>
                     label="Chức vụ"
-                    name="roleId"
+                    name="role_id"
                     rules={[{ required: true, message: 'Chức vụ không được bỏ trống!' }]}
                 >
                     <Select
@@ -147,7 +147,7 @@ const CreateUser: FC = () => {
 
                 <Form.Item<FieldType>
                     label="Tên nhân viên"
-                    name="fullName"
+                    name="full_name"
                     rules={[{ required: true, message: 'Tên nhân viên không được bỏ trống!' }]}
                 >
                     <Input size="large" />
@@ -225,7 +225,7 @@ const CreateUser: FC = () => {
 
                 <Form.Item<FieldType>
                     label="Hoạt động"
-                    name="delete"
+                    name="is_deleted"
                 >
                     <Switch />
                 </Form.Item>

@@ -26,29 +26,29 @@ const AuthContext = createContext<IAuthContext>(initialValue)
 const AuthProvider = ({ children }: Props) => {
     const [authenticated, setAuthenticated] = useState<boolean>(() => !!localStorage.getItem('token'));
     const navigate = useNavigate();
-    
-    const login = async (form : any) => {
+
+    const login = async (form: any) => {
         try {
             const result = await userAPI.login(form)
 
             if (result?.data?.statusCode === 1) {
                 setAuthenticated(true);
                 toast.success(`${result?.data?.message}`)
-                localStorage.setItem('token', result?.data?.token );
-                localStorage.setItem('startTimeToken', result?.data?.startTime );
-                localStorage.setItem('endTimeToken', result?.data?.endTime );
+                localStorage.setItem('token', result?.data?.token);
+                localStorage.setItem('startTimeToken', result?.data?.startTime);
+                localStorage.setItem('endTimeToken', result?.data?.endTime);
                 navigate('/');
             }
 
         } catch (error: any) {
             console.log(error);
             toast.error(`${error?.response?.data?.message}`)
-         
+
         }
     }
 
-    const logout = async() => {
-        await userAPI.logout()
+    const logout = async () => {
+        // await userAPI.logout()
         localStorage.clear();
         window.location.reload();
     }
