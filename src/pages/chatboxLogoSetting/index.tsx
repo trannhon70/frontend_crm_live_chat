@@ -16,6 +16,7 @@ const ChatboxLogoSetting: FC = () => {
     const handleDivClick = () => {
         fileInputRef.current?.click();
     };
+    console.log(id, 'id');
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -23,21 +24,21 @@ const ChatboxLogoSetting: FC = () => {
             const formData = new FormData();
             formData.append("file", file);
             formData.append("id", id);
-            const result = await chatBoxLogoAPI.create(formData);
-            setimg(result.data.file)
+            await chatBoxLogoAPI.create(formData);
+            getOne();
         }
     };
 
-      const getOne = async () => {
+    const getOne = async () => {
         const result = await chatBoxLogoAPI.getOne();
-       
-          setimg(result.data?.file);
-          setId(result.data?.id);
-      };
-    
-      useEffect(() => {
+
+        setimg(result.data?.file);
+        setId(result.data?.id);
+    };
+
+    useEffect(() => {
         getOne();
-      }, []);
+    }, []);
 
     useEffect(() => {
         if (role && role !== CheckRole.ADMIN) {
@@ -59,7 +60,7 @@ const ChatboxLogoSetting: FC = () => {
                     {
                         img ? <img width="100%" height="100%" src={img} alt="..." /> : <RiUploadCloud2Line size={60} className="text-[#0f447d]" />
                     }
-                    
+
                 </div>
                 <input
                     type="file"
