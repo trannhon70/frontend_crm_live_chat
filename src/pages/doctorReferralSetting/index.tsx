@@ -2,7 +2,7 @@ import { Button } from "antd";
 import DOMPurify from "dompurify";
 import { type FC, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { chatBoxMessageDoctorAPI } from "../../apis/chat_box_message_doctor.api";
+import { liveChatCardAPI } from "../../apis/live_chat_card.api";
 
 const DoctorReferralSetting:FC = () =>{
 
@@ -18,7 +18,7 @@ const DoctorReferralSetting:FC = () =>{
       return toast.warning("Nội dung không được bỏ trống!");
     }
 
-    const result = await chatBoxMessageDoctorAPI.create({ name: rawInput, id: id });
+    const result = await liveChatCardAPI.create({ name: rawInput, id: id });
     if (result.statusCode === 1) {
       toast.success("Lưu dữ liệu thành công");
     } else {
@@ -27,7 +27,7 @@ const DoctorReferralSetting:FC = () =>{
   };
 
   const getOne = async () => {
-    const result = await chatBoxMessageDoctorAPI.getByIdUser();
+    const result = await liveChatCardAPI.getByIdUser();
     if (result?.data?.name) {
       setRawInput(result.data.name);
       setId(result.data.id);
