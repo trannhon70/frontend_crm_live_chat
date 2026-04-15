@@ -5,7 +5,7 @@ import { SketchPicker } from 'react-color';
 import { FaEdit } from "react-icons/fa";
 import { MdDelete, MdInsertEmoticon } from "react-icons/md";
 import { toast } from "react-toastify";
-import { chatBoxMessageRandomAPI } from "../../apis/chat_box_message_random.api";
+import { liveChatRandomMessage } from "../../apis/live_chat_random_message.api";
 import { CheckRole } from "../../utils";
 import UseCheckRole from "../../hooks/useCheckRole";
 import { useNavigate } from "react-router-dom";
@@ -34,7 +34,7 @@ const RandomChatSetting: FC = () => {
     }
 
     const getPagingChat = async () => {
-        const result = await chatBoxMessageRandomAPI.getPaging({ pageIndex: pageIndex, pageSize: pageSize })
+        const result = await liveChatRandomMessage.getPaging({ pageIndex: pageIndex, pageSize: pageSize })
         setData(result.data);
         setPageIndex(result.pageIndex);
         setPageSize(result.pageSize)
@@ -118,7 +118,7 @@ const RandomChatSetting: FC = () => {
             time: time
         }
         if (id) {
-            await chatBoxMessageRandomAPI.update(id, body).then((_res: any) => {
+            await liveChatRandomMessage.update(id, body).then((_res: any) => {
                 toast.success(`Lưu dữ liệu thành công`);
                 divRef.current.innerHTML = '';
                 setId(null);
@@ -129,7 +129,7 @@ const RandomChatSetting: FC = () => {
             })
 
         } else {
-            await chatBoxMessageRandomAPI.create(body).then((_res: any) => {
+            await liveChatRandomMessage.create(body).then((_res: any) => {
                 toast.success(`Lưu dữ liệu thành công`);
                 divRef.current.innerHTML = '';
                 getPagingChat();
@@ -140,7 +140,7 @@ const RandomChatSetting: FC = () => {
     }
 
     const deleteItem = async (value: any) => {
-        await chatBoxMessageRandomAPI.deletes(value).then((_res: any) => {
+        await liveChatRandomMessage.deletes(value).then((_res: any) => {
             toast.success(`Xóa dữ liệu thành công`);
             getPagingChat()
         }).catch((_error: any) => {
