@@ -162,7 +162,7 @@ const ChatOrder: FC = () => {
     const onclickSave = () =>{
         const body = items['root'].map((item:any, index: number) =>{
             return {
-                order: index + 1,
+                sort_order: index + 1,
                 userId: item.id,
                 fullName: item.fullName
             }
