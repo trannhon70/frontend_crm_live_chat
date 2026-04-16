@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import { useEffect, useState, type FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { timeDisplayChatlAPI } from "../../apis/time_display_chat.api";
+import { LiveChatTimeAPI } from "../../apis/live_chat_time";
 import LoadingLayout from "../../components/loadingLayout";
 import UseCheckRole from "../../hooks/useCheckRole";
 import { CheckRole } from "../../utils";
@@ -30,7 +30,7 @@ const TimeDisplayChat: FC = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await timeDisplayChatlAPI.getAll();
+                const res = await LiveChatTimeAPI.getAll();
                 if (res.data.length > 0) {
                     setData(res.data)
                 }
@@ -51,7 +51,7 @@ const TimeDisplayChat: FC = () => {
     }
 
     const onClickSave = () => {
-        timeDisplayChatlAPI.create(data).then((_res: any) => {
+        LiveChatTimeAPI.create(data).then((_res: any) => {
             toast.success('Lưu dữ liệu thành công!')
         }).catch((_err: any) => {
             toast.error('Lưu dữ liệu không thành công!')

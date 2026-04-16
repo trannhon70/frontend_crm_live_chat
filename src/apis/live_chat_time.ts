@@ -1,6 +1,6 @@
 import instance from "../helper/api.helper";
 
-export const timeDisplayChatlAPI = {
+export const LiveChatTimeAPI = {
     create,
     getAll,
     
@@ -8,13 +8,13 @@ export const timeDisplayChatlAPI = {
 
 
 async function create(body: any) {
-    const response = await instance.post(`/time-display-chat/create`,body);
+    const response = await instance.post(`/live-chat-time/create`,body);
     return response.data
 }
 
 
 
 async function getAll() {
-    const response = await instance.get(`/time-display-chat/get-all`);
+    const response = await instance.get(`/live-chat-time/get-all`);
     return response.data
 }
