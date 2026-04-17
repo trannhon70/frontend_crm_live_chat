@@ -69,7 +69,7 @@ const Friend: FC = () => {
 
     const getAllByIdUser = async (userId: number) => {
         const result = await friendAPI.getAllById(userId);
-        const friendIds = result.map((item: any) => item.friendId);
+        const friendIds = result.map((item: any) => item.friend_id);
         setSelectedUserIds(friendIds)
     }
 
