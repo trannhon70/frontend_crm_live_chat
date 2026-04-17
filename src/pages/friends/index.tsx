@@ -101,7 +101,7 @@ const Friend: FC = () => {
                                 ${active === item.id ? "bg-amber-500 text-white" : "bg-gray-200"}
                             `}
                         >
-                            {index + 1}. <FaUser size={22} className="text-[#0f447d]" /> {item.fullName}
+                            {index + 1}. <FaUser size={22} className="text-[#0f447d]" /> {item.full_name}
                         </div>
                     })
                 }
@@ -119,7 +119,7 @@ const Friend: FC = () => {
                             className="p-[10px] flex items-center justify-between gap-2 text-lg box-border cursor-pointer border-b border-white hover:bg-emerald-500 hover:text-white"
                         >
                             <div>
-                                {index + 1}. {item.fullName}
+                                {index + 1}. {item.full_name}
                             </div>
                             <Checkbox
                                 checked={isChecked}
