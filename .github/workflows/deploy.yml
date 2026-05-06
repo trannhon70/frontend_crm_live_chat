@@ -16,15 +16,18 @@ jobs:
           npm ci
           npm run build
 
+      # ✅ Upload đúng cách
       - name: Upload dist to server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASSWORD }}
-          source: "dist/*"
-          target: "/www/wwwroot/frontend_crm_live_chat/dist"
+          source: "dist"
+          target: "/www/wwwroot/frontend_crm_live_chat"
+          overwrite: true
 
+      # ✅ Restart chuẩn
       - name: Restart PM2
         uses: appleboy/ssh-action@v1
         with:
@@ -32,5 +35,9 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
+            cd /www/wwwroot/frontend_crm_live_chat
+
             /www/server/nodejs/v24.15.0/bin/pm2 reload frontend_crm_live_chat || \
             /www/server/nodejs/v24.15.0/bin/pm2 start "npx serve -s dist -l 5173" --name frontend_crm_live_chat
+
+            /www/server/nodejs/v24.15.0/bin/pm2 save
