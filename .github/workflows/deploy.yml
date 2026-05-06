@@ -1,9 +1,9 @@
-name: Deploy React Vite (Apache)
+name: Deploy React Vite (PM2 - Port 3005)
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -26,15 +26,21 @@ jobs:
 
             cd /www/wwwroot/frontend_crm_live_chat || exit 1
 
+            git config --global --add safe.directory /www/wwwroot/frontend_crm_live_chat
             git pull origin main
 
-            npm install
+            # ✅ cài nhanh hơn
+            npm ci
+
+            # ✅ build React
             npm run build
 
-            # clear old files
-            rm -rf /www/wwwroot/frontend_crm_live_chat/*
+            # ✅ stop nếu đã chạy
+            /www/server/nodejs/v24.15.0/bin/pm2 delete frontend_crm_live_chat || true
 
-            # copy new build
-            cp -r dist/* /www/wwwroot/frontend_crm_live_chat/
+            # ✅ chạy static bằng PM2 port 3005
+            /www/server/nodejs/v24.15.0/bin/pm2 serve dist 3005 --name frontend_crm_live_chat --spa
+
+            /www/server/nodejs/v24.15.0/bin/pm2 save
 
             echo "===== DEPLOY DONE ====="

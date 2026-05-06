@@ -18,9 +18,9 @@ export default defineConfig({
     },
   },
   server: {
-    allowedHosts: ['tuvan.andongclinic.vn'],
+    allowedHosts: ['tintuc24honline.com'],
     host: true, // Cho phép truy cập từ mọi host
-    
+
   },
   base: './', // Đảm bảo đúng base path khi deploy
   build: {
@@ -30,5 +30,5 @@ export default defineConfig({
   optimizeDeps: {
     include: ['moment', 'moment/locale/vi']
   }
-  
+
 })
