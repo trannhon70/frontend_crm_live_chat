@@ -1,4 +1,4 @@
-name: Deploy React Vite (PM2 - Port 3005)
+name: Deploy React Vite (PM2 - Port 5173)
 
 on:
   push:
@@ -38,8 +38,8 @@ jobs:
             # ✅ stop nếu đã chạy
             /www/server/nodejs/v24.15.0/bin/pm2 delete frontend_crm_live_chat || true
 
-            # ✅ chạy static bằng PM2 port 3005
-            /www/server/nodejs/v24.15.0/bin/pm2 serve dist 3005 --name frontend_crm_live_chat --spa
+            # ✅ chạy static bằng PM2 port 5173
+            /www/server/nodejs/v24.15.0/bin/pm2 serve dist 5173 --name frontend_crm_live_chat --spa
 
             /www/server/nodejs/v24.15.0/bin/pm2 save
 
