@@ -231,7 +231,7 @@ const ComponentCardChatList: FC<IProps> = (props) => {
                             return <CustomTreeItem key={`${item.id}_a`} itemId={`${item.id}_a`} label={
                                 <div className='flex items-center justify-between' >
                                     <div>
-                                        {item.fullName} {item.online ? <span className="text-green-700" >(online)</span> : <span className="text-red-700" >(offline)</span>}
+                                        {item.full_name} {item.is_online ? <span className="text-green-700" >(online)</span> : <span className="text-red-700" >(offline)</span>}
                                     </div>
                                     {
                                         [CheckRole.ADMIN, CheckRole.QUANLY].includes(users.user?.role?.id) &&

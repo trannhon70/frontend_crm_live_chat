@@ -8,7 +8,7 @@ export const messageAPI = {
 };
 
 async function uploadFile(body: any) {
-    const respone = await instance.post(`/message/upload`, body, {
+    const respone = await instance.post(`/live-message/upload`, body, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -17,16 +17,16 @@ async function uploadFile(body: any) {
 }
 
 async function updateStatus(body: any) {
-    const respone = await instance.post(`/message/update-status`, body);
+    const respone = await instance.post(`/live-message/update-status`, body);
     return respone.data
 }
 
 async function getPaging(query: any) {
-    const respone = await instance.get(`/message/get-paging?pageSize=${query.pageSize}&pageIndex=${query.pageIndex}&conversationId=${query.conversationId}`);
+    const respone = await instance.get(`/live-message/get-paging?pageSize=${query.pageSize}&pageIndex=${query.pageIndex}&conversationId=${query.conversationId}`);
     return respone.data
 }
 
 async function getByIdConversation(query: any) {
-    const respone = await instance.get(`/message/get-by-id-conversation?pageSize=${query.pageSize}&pageIndex=${query.pageIndex}&conversationId=${query.conversationId}&userId=${query.userId}`);
+    const respone = await instance.get(`/live-message/get-by-id-conversation?pageSize=${query.pageSize}&pageIndex=${query.pageIndex}&conversationId=${query.conversationId}&userId=${query.userId}`);
     return respone.data
 }
