@@ -158,11 +158,11 @@ const ComponentCardOnlineVisitors: FC<IProps> = (props) => {
     });
 
     const onlineUsers = useMemo(() => {
-        return data?.data?.filter((item: any) => item?.online && item?.userId === null) || [];
+        return data?.data?.filter((item: any) => item?.is_online && item?.assigned_user_id === null) || [];
     }, [data?.data]);
 
     const offlineUsers = useMemo(() => {
-        return data?.data?.filter((item: any) => !item?.online) || [];
+        return data?.data?.filter((item: any) => !item?.is_online) || [];
     }, [data?.data]);
 
     if (isLoading) return <div>Đang tải dữ liệu...</div>;

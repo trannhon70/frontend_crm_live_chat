@@ -53,10 +53,11 @@ const ComponentCardChatList: FC<IProps> = (props) => {
     const users = useSelector((state: RootState) => state.users);
 
     const onNewConversation = useCallback((msg: any) => {
+
         setData((prevData: any) => {
             // ✅ clone data để tránh tham chiếu lẫn nhau
             return prevData.map((item: any) => {
-                const isOtherUser = Number(item.id) !== Number(msg.userId);
+                const isOtherUser = Number(item.id) !== Number(msg.assigned_user_id);
                 if (isOtherUser) {
                     return { ...item }; // clone để đảm bảo ko dùng chung tham chiếu
                 }
@@ -88,7 +89,7 @@ const ComponentCardChatList: FC<IProps> = (props) => {
         setData((prevData: any) => {
             return prevData.map((item: any) => {
                 if (Number(item.id) === Number(msg.id)) {
-                    return { ...item, online: msg.online };
+                    return { ...item, is_online: msg.is_online };
                 }
                 return item;
             })
@@ -243,7 +244,7 @@ const ComponentCardChatList: FC<IProps> = (props) => {
                             }>
                                 <CustomTreeItem itemId={`${item.id}_b`} label="Trò chuyện">
                                     {
-                                        item.conversation.length > 0 && item.conversation.filter((ite: any) => ite.online === true).map((con: any, mesIndex: number) => {
+                                        item.conversation.length > 0 && item.conversation.filter((ite: any) => ite.is_online === true).map((con: any, mesIndex: number) => {
                                             return <CustomTreeItem
                                                 key={`${item.id}_${con.id}_${mesIndex}`}
                                                 itemId={`${item.id}_${con.id}_${mesIndex}`}
